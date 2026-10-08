@@ -1,5 +1,15 @@
 # Livox ROS Driver 2
 
+## 本分支 ROS 2 集成约束
+
+- 使用已纳管的 ROS 2 `package.xml`, 在工作区内直接执行 `colcon build --packages-select livox_ros_driver2`. 不需要通过 `build.sh` 生成清单.
+- 通过 `ROS_DISTRO` 自动选择 Humble/Jazzy 类型支持链接, 也可显式设置 `DISTRO_ROS`.
+- 使用 Livox SDK2 静态库和独立 `livox_ros_driver2_node`, 隔离 SDK 内置 spdlog/fmt 符号; 不再提供 ROS 2 component 插件加载入口.
+- 确认 SDK2 版本包含实际设备类型, 通过 `LIVOX_LIDAR_SDK_LIBRARY` 与 `LIVOX_LIDAR_SDK_INCLUDE_DIR` 指向同一版本, 不混用旧头文件和新库.
+- 将设备地址放入现场独立 JSON, 通过节点参数 `user_config_path` 传入. 不将参考现场 IP 固化到本分支.
+- 保留队列初始化, 重复释放防护和 SDK 观察者先于 SDK 退出的清理顺序.
+
+
 Livox ROS Driver 2 is the 2nd-generation driver package used to connect LiDAR products produced by Livox, applicable for ROS (noetic recommended) and ROS2 (foxy or humble recommended).
 
   **Note :**

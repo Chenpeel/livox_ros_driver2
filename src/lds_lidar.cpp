@@ -202,9 +202,13 @@ int LdsLidar::DeInitLdsLidar(void) {
   }
 
   if (lidar_summary_info_.lidar_type & kLivoxLidarType) {
+    // Stop SDK observers and their worker before releasing the SDK.
+    pub_handler().Uninit();
     LivoxLidarSdkUninit();
     printf("Livox Lidar SDK Deinit completely!\n");
   }
+  is_initialized_ = false;
+  g_lds_ldiar = nullptr;
 
   return 0;
 }

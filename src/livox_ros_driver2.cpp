@@ -187,9 +187,6 @@ DriverNode::DriverNode(const rclcpp::NodeOptions & node_options)
 
 }  // namespace livox_ros
 
-#include <rclcpp_components/register_node_macro.hpp>
-RCLCPP_COMPONENTS_REGISTER_NODE(livox_ros::DriverNode)
-
 #endif  // defined BUILDING_ROS2
 
 
